@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Placar = ({ timeA, timeB, scoutTimeA, scoutTimeB }) => {
   const calcularPontos = (scout) =>
     scout.reduce(
@@ -10,7 +8,9 @@ export const Placar = ({ timeA, timeB, scoutTimeA, scoutTimeB }) => {
 
   const renderTabela = (scout, nomeTime) => (
     <div className="mt-8">
-      <h2 className="text-xl text-center mb-4">{nomeTime} - Tabela de Pontuação</h2>
+      <h2 className="text-xl text-center mb-4">
+        {nomeTime} - Tabela de Pontuação
+      </h2>
       <table className="table-auto w-full text-center border-collapse">
         <thead>
           <tr>
@@ -50,8 +50,12 @@ export const Placar = ({ timeA, timeB, scoutTimeA, scoutTimeB }) => {
   return (
     <>
       <div className="flex justify-center gap-8 text-2xl font-bold mt-8">
-        <div>{timeA}: {pontosTimeA}</div>
-        <div>{timeB}: {pontosTimeB}</div>
+        <div>
+          {timeA}: {pontosTimeA}
+        </div>
+        <div>
+          {timeB}: {pontosTimeB}
+        </div>
       </div>
 
       {renderTabela(scoutTimeA, timeA)}
