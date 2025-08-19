@@ -1,3 +1,5 @@
+import { useRef, useEffect } from "react";
+
 export const Form = ({
   id,
   label,
@@ -7,6 +9,10 @@ export const Form = ({
   type,
   ...props
 }) => {
+  const inputRef = useRef(null);
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
   return (
     <form className="mt-4 flex flex-col items-center" onSubmit={handleSubmit}>
       <label htmlFor={id} className="block">
@@ -19,6 +25,7 @@ export const Form = ({
         value={value}
         onChange={({ target }) => setTime(target.value.toUpperCase())}
         required
+        ref={inputRef}
         {...props}
       />
       <button className="mt-4 bg-blue-200 px-4 py-2 rounded-full">

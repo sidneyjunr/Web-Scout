@@ -23,9 +23,9 @@ export const TimeA_Provider = ({ children }) => {
         item.jogador === jogador
           ? {
               ...item,
-              qtd_bola1: valorCesta === 1 ? qtd_bola1 + 1 : qtd_bola1,
-              qtd_bola2: valorCesta === 2 ? qtd_bola2 + 1 : qtd_bola2,
-              qtd_bola3: valorCesta === 3 ? qtd_bola3 + 1 : qtd_bola3,
+              qtd_bola1: valorCesta === 1 ? item.qtd_bola1 + 1 : item.qtd_bola1,
+              qtd_bola2: valorCesta === 2 ? item.qtd_bola2 + 1 : item.qtd_bola2,
+              qtd_bola3: valorCesta === 3 ? item.qtd_bola3 + 1 : item.qtd_bola3,
             }
           : item
       )

@@ -1,65 +1,49 @@
-export const Placar = ({ timeA, timeB, scoutTimeA, scoutTimeB }) => {
-  const calcularPontos = (scout) =>
-    scout.reduce(
-      (acc, j) =>
-        acc + j.pontuacao[1] * 1 + j.pontuacao[2] * 2 + j.pontuacao[3] * 3,
-      0
-    );
+import { useContext } from "react";
+import { TimeA_Context } from "./contexts/TimeA_Context";
+import { TimeB_Context } from "./contexts/TimeB_Context";
 
-  const renderTabela = (scout, nomeTime) => (
-    <div className="mt-8">
-      <h2 className="text-xl text-center mb-4">
-        {nomeTime} - Tabela de Pontuação
-      </h2>
-      <table className="table-auto w-full text-center border-collapse">
+export const Placar = ({ time }) => {
+  const { scoutA } = useContext(TimeA_Context);
+  const { scoutB } = useContext(TimeB_Context);
+
+  const dados = time === "timeA" ? scoutA : scoutB;
+  const dadosOrdenados = [...dados].sort((a, b) => Number(a.jogador) - Number(b.jogador));
+
+  if (!dadosOrdenados || dadosOrdenados.length === 0) {
+    return <p className="mt-4">Nenhum jogador cadastrado ainda.</p>;
+  }
+
+  return (
+    <div className="mt-6 w-full max-w-xs mx-auto md:max-w-lg overflow-x-auto">
+      <table className="table-auto border border-gray-400 w-full text-xs md:text-base">
         <thead>
-          <tr>
-            <th className="px-4 py-2 border">Número do Jogador</th>
-            <th className="px-4 py-2 border">Bolas de 1</th>
-            <th className="px-4 py-2 border">Bolas de 2</th>
-            <th className="px-4 py-2 border">Bolas de 3</th>
-            <th className="px-4 py-2 border">Total de Pontos</th>
+          <tr className="bg-gray-200">
+            <th className="border px-2 py-1">Nº Jogador</th>
+            <th className="border px-2 py-1">1 Ponto</th>
+            <th className="border px-2 py-1">2 Pontos</th>
+            <th className="border px-2 py-1">3 Pontos</th>
+            <th className="border px-2 py-1">Total</th>
           </tr>
         </thead>
         <tbody>
-          {scout.map((jogadorData, index) => {
-            const totalPontos =
-              jogadorData.pontuacao[1] * 1 +
-              jogadorData.pontuacao[2] * 2 +
-              jogadorData.pontuacao[3] * 3;
+          {dadosOrdenados.map((item) => {
+            const total =
+              item.qtd_bola1 * 1 +
+              item.qtd_bola2 * 2 +
+              item.qtd_bola3 * 3;
+
             return (
-              <tr key={index}>
-                <td className="px-4 py-2 border">{jogadorData.jogador}</td>
-                <td className="px-4 py-2 border">{jogadorData.pontuacao[1]}</td>
-                <td className="px-4 py-2 border">{jogadorData.pontuacao[2]}</td>
-                <td className="px-4 py-2 border">{jogadorData.pontuacao[3]}</td>
-                <td className="px-4 py-2 border">{totalPontos}</td>
+              <tr key={item.jogador} className="text-center">
+                <td className="border px-2 py-1">{item.jogador}</td>
+                <td className="border px-2 py-1">{item.qtd_bola1}</td>
+                <td className="border px-2 py-1">{item.qtd_bola2}</td>
+                <td className="border px-2 py-1">{item.qtd_bola3}</td>
+                <td className="border px-2 py-1 font-bold">{total}</td>
               </tr>
             );
           })}
         </tbody>
       </table>
     </div>
-  );
-
-  const pontosTimeA = calcularPontos(scoutTimeA);
-  const pontosTimeB = calcularPontos(scoutTimeB);
-
-  if (pontosTimeA === 0 && pontosTimeB === 0) return null;
-
-  return (
-    <>
-      <div className="flex justify-center gap-8 text-2xl font-bold mt-8">
-        <div>
-          {timeA}: {pontosTimeA}
-        </div>
-        <div>
-          {timeB}: {pontosTimeB}
-        </div>
-      </div>
-
-      {renderTabela(scoutTimeA, timeA)}
-      {renderTabela(scoutTimeB, timeB)}
-    </>
   );
 };
