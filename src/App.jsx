@@ -39,8 +39,8 @@ export const App = () => {
         )}
         {timeA && timeB && slide === 2 && (
           <TelaEscolherTime
-            timeA={timeA}
-            timeB={timeB}
+            timeA={timeA.toUpperCase()}
+            timeB={timeB.toUpperCase()}
             setTimeAtual={setTimeAtual}
             setSlide={setSlide}
             setTime={setTime}
@@ -48,8 +48,8 @@ export const App = () => {
         )}
         {slide === 3 && (
           <TelaScout
-            timeA={timeA}
-            timeB={timeB}
+            timeA={timeA.toUpperCase()}
+            timeB={timeB.toUpperCase()}
             timeAtual={timeAtual}
             setTimeAtual={setTimeAtual}
           />

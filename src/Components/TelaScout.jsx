@@ -4,10 +4,10 @@ import { Placar } from "./Placar";
 
 export const TelaScout = ({ timeA, timeB, timeAtual, setTimeAtual }) => (
   <div className="flex flex-col items-center mt-4 w-full relative">
-    <div className="flex w-full justify-between items-center mb-2">
-      <PlacarTotal time="timeA" />
-      <h1 className="text-base md:text-xl font-semibold text-center w-full">{timeAtual}</h1>
-      <PlacarTotal time="timeB" />
+    <div className="flex w-full justify-between items-center mb-2 ">
+      <PlacarTotal time="timeA"/>
+      <h1 className="text-base md:text-xl font-semibold text-center w-full ">{timeAtual}</h1>
+      <PlacarTotal time="timeB"/>
     </div>
     <div className="flex w-full gap-2 mb-4 md:justify-center md:gap-4">
       <button

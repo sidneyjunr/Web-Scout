@@ -12,7 +12,7 @@ export const PlacarTotal = ({ time }) => {
   );
   return (
     <div>
-      <span className="text-lg md:text-2xl font-bold text-blue-600">{total}</span>
+      <span className="text-lg md:text-2xl font-bold mx-8 text-blue-600">{total}</span>
     </div>
   );
 };
