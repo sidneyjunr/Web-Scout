@@ -11,8 +11,11 @@ export const Form = ({
 }) => {
   const inputRef = useRef(null);
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    if (inputRef.current) {
+      inputRef.current.value = value;
+      inputRef.current.focus();
+    }
+  }, [id]);
   return (
     <form className="mt-4 flex flex-col items-center" onSubmit={handleSubmit}>
       <label htmlFor={id} className="block">
