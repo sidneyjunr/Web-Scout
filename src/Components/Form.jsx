@@ -33,10 +33,10 @@ export const Form = memo(function Form({
         onInput={(e) => setTime(e.target.value)}
         required
         ref={inputRef}
-        autoCorrect="off"
-        autoCapitalize="off"
-        spellCheck={false}
-        autoComplete="off"
+        // autoCorrect="off"
+        // autoCapitalize="off"
+        // spellCheck={false}
+        // autoComplete="off"
         {...props}
       />
       <button
