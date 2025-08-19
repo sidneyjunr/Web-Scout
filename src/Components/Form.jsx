@@ -11,13 +11,14 @@ export const Form = ({
 }) => {
   const inputRef = useRef(null);
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.value = value;
-      inputRef.current.focus();
-    }
+    inputRef.current?.focus();
   }, [id]);
   return (
-    <form className="mt-4 flex flex-col items-center" onSubmit={handleSubmit}>
+    <form
+      className="mt-4 flex flex-col items-center"
+      onSubmit={handleSubmit}
+      autoComplete="off"
+    >
       <label htmlFor={id} className="block">
         {label}
       </label>
@@ -26,9 +27,13 @@ export const Form = ({
         className="block mt-2 ring-1 ring-black rounded-full py-2 px-4"
         type={type}
         value={value}
-        onChange={({ target }) => setTime(target.value.toUpperCase())}
+        onChange={(e) => setTime(e.target.value)}
         required
         ref={inputRef}
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck={false}
+        autoComplete="off"
         {...props}
       />
       <button className="mt-4 bg-blue-200 px-4 py-2 rounded-full">
