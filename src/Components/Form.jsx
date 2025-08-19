@@ -1,6 +1,6 @@
-import { useRef, useEffect } from "react";
+import React, { memo, useRef, useEffect } from "react";
 
-export const Form = ({
+export const Form = memo(function Form({
   id,
   label,
   value,
@@ -8,11 +8,13 @@ export const Form = ({
   handleSubmit,
   type,
   ...props
-}) => {
+}) {
   const inputRef = useRef(null);
+
   useEffect(() => {
     inputRef.current?.focus();
-  }, [id]);
+  }, []);
+
   return (
     <form
       className="mt-4 flex flex-col items-center"
@@ -27,7 +29,8 @@ export const Form = ({
         className="block mt-2 ring-1 ring-black rounded-full py-2 px-4"
         type={type}
         value={value}
-        onChange={(e) => setTime(e.target.value)}
+        // Usando onInput (mais rápido no mobile)
+        onInput={(e) => setTime(e.target.value)}
         required
         ref={inputRef}
         autoCorrect="off"
@@ -44,4 +47,4 @@ export const Form = ({
       </button>
     </form>
   );
-};
+});
