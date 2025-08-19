@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { Header } from "./Components/Header";
 import { ComoUsar } from "./Components/ComoUsar";
 import { Contribuir } from "./Components/Contribuir";
