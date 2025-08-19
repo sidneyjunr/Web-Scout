@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 
 export const Form = ({
   id,
@@ -10,9 +10,6 @@ export const Form = ({
   ...props
 }) => {
   const inputRef = useRef(null);
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [id]);
   return (
     <form
       className="mt-4 flex flex-col items-center"
@@ -34,9 +31,13 @@ export const Form = ({
         autoCapitalize="off"
         spellCheck={false}
         autoComplete="off"
+        inputMode={type === "text" ? "text" : undefined}
         {...props}
       />
-      <button className="mt-4 bg-blue-200 px-4 py-2 rounded-full">
+      <button
+        className="mt-4 bg-blue-200 px-4 py-2 rounded-full"
+        type="submit"
+      >
         Avançar
       </button>
     </form>
