@@ -1,4 +1,8 @@
 {
+  "redirects": [
+    { "source": "/como-usar", "destination": "/", "statusCode": 302 },
+    { "source": "/contribuir", "destination": "/", "statusCode": 302 }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
   ]

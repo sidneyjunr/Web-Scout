@@ -35,6 +35,7 @@ export const App = () => {
             value={timeB}
             setTime={setTimeB}
             handleSubmit={handleSubmit}
+            timeA={timeA}
           />
         )}
         {timeA && timeB && slide === 2 && (
