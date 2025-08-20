@@ -114,6 +114,10 @@ export const FormScout = ({ time }) => {
         inputMode="numeric"
         pattern="[0-9]*"
         style={jogadorPisca ? { boxShadow: '0 0 0 2px #ef4444' } : {}}
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck={false}
       />
       <label htmlFor="valor_cesta" className="text-sm md:text-base">Valor da Cesta?</label>
       <input
@@ -128,6 +132,10 @@ export const FormScout = ({ time }) => {
         inputMode="numeric"
         pattern="[1-3]*"
         style={valorCestaPisca ? { boxShadow: '0 0 0 2px #ef4444' } : {}}
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck={false}
       />
       <button className="w-full py-2 mt-2 bg-blue-400 text-white rounded text-base md:text-lg font-semibold shadow">Avançar</button>
     </form>
