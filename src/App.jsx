@@ -10,11 +10,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export const App = () => {
   const [time, setTime] = useState(false);
+  // const [timeA, setTimeA] = useState("ABC");
+  // const [timeB, setTimeB] = useState("BPA");
+  // const [slide, setSlide] = useState(3);
   const [timeA, setTimeA] = useState("");
   const [timeB, setTimeB] = useState("");
   const [slide, setSlide] = useState(0);
   const [timeAtual, setTimeAtual] = useState("");
-
   function handleSubmit(e) {
     e.preventDefault();
     setSlide(slide + 1);

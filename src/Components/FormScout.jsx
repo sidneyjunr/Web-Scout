@@ -2,7 +2,7 @@ import { useContext, useState, useRef, useEffect } from "react";
 import { TimeA_Context } from "./contexts/TimeA_Context";
 import { TimeB_Context } from "./contexts/TimeB_Context";
 
-export const FormScout = ({ time }) => {
+export const FormScout = ({ time, desfazerPonto }) => {
   const { scoutA, adicionarJogador, registrarCesta } = useContext(TimeA_Context);
   const { scoutB, adicionarJogadorB, registrarCestaB } = useContext(TimeB_Context);
 
@@ -101,7 +101,20 @@ export const FormScout = ({ time }) => {
 
   return (
     <form onSubmit={handleSubmitScout} className="space-y-2 flex flex-col bg-white p-4 rounded shadow w-full max-w-xs mx-auto md:max-w-md">
-      <label htmlFor="numero_jogador" className="text-sm md:text-base">Digite o número do jogador</label>
+      <div className="flex items-center gap-2 w-full">
+        <label htmlFor="numero_jogador" className="text-sm md:text-base mb-0 flex-1">Digite o número do jogador</label>
+        {desfazerPonto && (
+          <button
+            type="button"
+            onClick={desfazerPonto}
+            className="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-xs text-gray-700 border border-gray-300 focus:outline-blue-400 focus:ring-2 focus:ring-blue-300 active:bg-gray-400 transition-all"
+            title="Desfazer último ponto"
+            style={{ minWidth: 60, flexShrink: 0 }}
+          >
+            Desfazer ultimo ponto
+          </button>
+        )}
+      </div>
       <input
         type="tel"
         id="numero_jogador"

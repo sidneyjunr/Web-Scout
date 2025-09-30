@@ -9,13 +9,22 @@ import { TimeB_Context } from "./contexts/TimeB_Context";
 export const TelaScout = ({ timeA, timeB, timeAtual, setTimeAtual }) => {
   const [showConfig, setShowConfig] = useState(false);
   const configRef = useRef(null);
-  const { setScoutA } = useContext(TimeA_Context);
-  const { setScoutB } = useContext(TimeB_Context);
+  const { setScoutA, desfazerUltimoPontoA } = useContext(TimeA_Context);
+  const { setScoutB, desfazerUltimoPontoB } = useContext(TimeB_Context);
 
   function handleReset() {
     if (timeAtual === timeA) setScoutA([]);
     if (timeAtual === timeB) setScoutB([]);
     setShowConfig(false);
+  }
+  
+  function desfazerPonto(){
+    // Função para desfazer o último ponto computado
+    if (timeAtual === timeA) {
+      desfazerUltimoPontoA();
+    } else if (timeAtual === timeB) {
+      desfazerUltimoPontoB();
+    }
   }
 
   useEffect(() => {
@@ -69,6 +78,12 @@ export const TelaScout = ({ timeA, timeB, timeAtual, setTimeAtual }) => {
                 >
                   Zerar resultados do time
                 </button>
+                <button
+                  className="w-full px-4 py-2 rounded bg-red-100 text-red-700 hover:bg-red-200 text-sm"
+                  onClick={handleReset}
+                >
+                  Zerar resultados do time
+                </button>
               </div>
             )}
           </div>
@@ -105,8 +120,8 @@ export const TelaScout = ({ timeA, timeB, timeAtual, setTimeAtual }) => {
           </div>
         </div>
       </div>
-      <div className="w-full">
-        <FormScout time={timeAtual === timeA ? "timeA" : "timeB"} />
+      <div className="w-full flex items-center gap-2">
+        <FormScout time={timeAtual === timeA ? "timeA" : "timeB"} desfazerPonto={desfazerPonto} />
       </div>
       <div className="w-full overflow-x-auto mt-2 bg-gray-100 rounded">
         <Placar time={timeAtual === timeA ? "timeA" : "timeB"} />
