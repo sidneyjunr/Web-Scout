@@ -103,15 +103,15 @@ export const FormScout = ({ time, desfazerPonto }) => {
     <form onSubmit={handleSubmitScout} className="space-y-2 flex flex-col bg-white p-4 rounded shadow w-full max-w-xs mx-auto md:max-w-md">
       <div className="flex items-center gap-2 w-full">
         <label htmlFor="numero_jogador" className="text-sm md:text-base mb-0 flex-1">Digite o número do jogador</label>
-        {desfazerPonto && (
+        {desfazerPonto && ((time === "timeA" ? scoutA.length > 0 : scoutB.length > 0)) && (
           <button
             type="button"
             onClick={desfazerPonto}
-            className="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-xs text-gray-700 border border-gray-300 focus:outline-blue-400 focus:ring-2 focus:ring-blue-300 active:bg-gray-400 transition-all"
+            className="px-2 py-1 rounded bg-red-500 hover:bg-red-600 text-xs text-white border border-red-600 focus:outline-red-400 focus:ring-2 focus:ring-red-300 active:bg-red-700 transition-all"
             title="Desfazer último ponto"
             style={{ minWidth: 60, flexShrink: 0 }}
           >
-            Desfazer ultimo ponto
+            Desfazer último ponto
           </button>
         )}
       </div>
