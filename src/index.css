@@ -1,3 +1,78 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Micro-interactions: ripple effect for clickable elements and subtle transitions */
+.ripple {
+	position: relative;
+	overflow: hidden;
+}
+.ripple span {
+	position: absolute;
+	border-radius: 9999px;
+	transform: scale(0);
+	animation: ripple 600ms linear;
+	background: rgba(255,255,255,0.6);
+	pointer-events: none;
+}
+@keyframes ripple {
+	to {
+		transform: scale(4);
+		opacity: 0;
+	}
+}
+
+/* Table row micro-interaction */
+.table-row-hover {
+	transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.table-row-hover:focus,
+.table-row-hover:focus-within,
+.table-row-hover:hover {
+	transform: translateY(-2px);
+	background-color: rgba(59,130,246,0.04); /* subtle blue */
+	box-shadow: 0 2px 6px rgba(16,24,40,0.04);
+}
+
+/* small pill animation when quarter changes */
+.quarter-pulse {
+	animation: pulse 700ms ease-in-out;
+}
+
+@keyframes pulse {
+	0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59,130,246,0.35); }
+	70% { transform: scale(1.02); box-shadow: 0 6px 18px 6px rgba(59,130,246,0.06); }
+	100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+}
+
+/* Fade and slide transitions for table switch */
+.fade-enter {
+	opacity: 0;
+	transform: translateX(10px);
+}
+.fade-enter-active {
+	opacity: 1;
+	transform: translateX(0);
+	transition: opacity 250ms ease, transform 250ms ease;
+}
+.fade-exit {
+	opacity: 1;
+}
+.fade-exit-active {
+	opacity: 0;
+	transform: translateX(-10px);
+	transition: opacity 200ms ease, transform 200ms ease;
+}
+
+/* Flash red for recent change */
+.flash-red {
+	animation: flash-red 900ms ease-in-out;
+}
+@keyframes flash-red {
+	0% { background-color: rgba(255,0,0,0.35); }
+	50% { background-color: rgba(255,0,0,0.12); }
+	100% { background-color: transparent; }
+}
+
+/* dark mode helpers (used by components) */
+/* dark mode helpers removed */

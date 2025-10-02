@@ -8,6 +8,8 @@ import { TimeB_Context } from "./contexts/TimeB_Context";
 
 export const TelaScout = ({ timeA, timeB, timeAtual, setTimeAtual }) => {
   const [showConfig, setShowConfig] = useState(false);
+  const [quarter, setQuarter] = useState(1);
+  const [pulse, setPulse] = useState(false);
   const configRef = useRef(null);
   const { setScoutA, desfazerUltimoPontoA } = useContext(TimeA_Context);
   const { setScoutB, desfazerUltimoPontoB } = useContext(TimeB_Context);
@@ -25,6 +27,12 @@ export const TelaScout = ({ timeA, timeB, timeAtual, setTimeAtual }) => {
     } else if (timeAtual === timeB) {
       desfazerUltimoPontoB();
     }
+  }
+
+  function encerrarQuarter() {
+    setQuarter((q) => (q >= 4 ? 1 : q + 1));
+    setPulse(true);
+    setTimeout(() => setPulse(false), 700);
   }
 
   useEffect(() => {
@@ -121,8 +129,14 @@ export const TelaScout = ({ timeA, timeB, timeAtual, setTimeAtual }) => {
         </div>
       </div>
       <div className="w-full flex items-center gap-2">
-        <FormScout time={timeAtual === timeA ? "timeA" : "timeB"} desfazerPonto={desfazerPonto} />
+        <FormScout time={timeAtual === timeA ? "timeA" : "timeB"} desfazerPonto={desfazerPonto} quarter={quarter} encerrarQuarter={encerrarQuarter} />
       </div>
+
+      {/* Indicador do quarto centralizado acima da tabela para evitar overflow lateral no mobile */}
+      <div className="w-full flex justify-center items-center mt-4 mb-2">
+        <span className={`text-sm md:text-base ${pulse ? 'quarter-pulse' : ''}`}>Quarto: <strong>{quarter}º</strong></span>
+      </div>
+
       <div className="w-full overflow-x-auto mt-2 bg-gray-100 rounded">
         <Placar time={timeAtual === timeA ? "timeA" : "timeB"} />
       </div>

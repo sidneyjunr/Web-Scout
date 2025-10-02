@@ -2,7 +2,7 @@ import { useContext, useState, useRef, useEffect } from "react";
 import { TimeA_Context } from "./contexts/TimeA_Context";
 import { TimeB_Context } from "./contexts/TimeB_Context";
 
-export const FormScout = ({ time, desfazerPonto }) => {
+export const FormScout = ({ time, desfazerPonto, quarter = 1, encerrarQuarter }) => {
   const { scoutA, adicionarJogador, registrarCesta } = useContext(TimeA_Context);
   const { scoutB, adicionarJogadorB, registrarCestaB } = useContext(TimeB_Context);
 
@@ -84,13 +84,13 @@ export const FormScout = ({ time, desfazerPonto }) => {
       if (!jogadorExiste) {
         adicionarJogador(jogador);
       }
-      registrarCesta(jogador, valor);
+      registrarCesta(jogador, valor, quarter);
     } else {
       const jogadorExiste = scoutB.some((item) => item.jogador === jogador);
       if (!jogadorExiste) {
         adicionarJogadorB(jogador);
       }
-      registrarCestaB(jogador, valor);
+      registrarCestaB(jogador, valor, quarter);
     }
     setJogador("");
     setValorCesta("");
@@ -150,7 +150,42 @@ export const FormScout = ({ time, desfazerPonto }) => {
         autoCapitalize="off"
         spellCheck={false}
       />
-      <button className="w-full py-2 mt-2 bg-blue-400 text-white rounded text-base md:text-lg font-semibold shadow">Avançar</button>
+      <div className="flex flex-col gap-2">
+        <button
+          className="w-full py-2 mt-2 bg-blue-400 text-white rounded text-base md:text-lg font-semibold shadow ripple"
+          onClick={(e) => {
+            const btn = e.currentTarget;
+            const rect = btn.getBoundingClientRect();
+            const span = document.createElement('span');
+            const size = Math.max(rect.width, rect.height);
+            span.style.width = span.style.height = size + 'px';
+            span.style.left = e.clientX - rect.left - size / 2 + 'px';
+            span.style.top = e.clientY - rect.top - size / 2 + 'px';
+            btn.appendChild(span);
+            setTimeout(() => span.remove(), 600);
+          }}
+        >
+          Avançar
+        </button>
+        <button
+          type="button"
+          onClick={(e) => {
+            const btn = e.currentTarget;
+            const rect = btn.getBoundingClientRect();
+            const span = document.createElement('span');
+            const size = Math.max(rect.width, rect.height);
+            span.style.width = span.style.height = size + 'px';
+            span.style.left = e.clientX - rect.left - size / 2 + 'px';
+            span.style.top = e.clientY - rect.top - size / 2 + 'px';
+            btn.appendChild(span);
+            setTimeout(() => span.remove(), 600);
+            encerrarQuarter && encerrarQuarter();
+          }}
+          className="w-full py-2 bg-yellow-400 text-white rounded text-sm md:text-base font-semibold shadow ripple"
+        >
+          Encerrar quarto
+        </button>
+      </div>
     </form>
   );
 };
