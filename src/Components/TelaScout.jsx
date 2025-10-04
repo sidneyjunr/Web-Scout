@@ -40,17 +40,23 @@ export const TelaScout = ({ timeA, timeB, timeAtual, setTimeAtual }) => {
   }
 
   function encerrarQuarter() {
-    const otherIsB = timeAtual === timeA ? true : false;
-    const otherScout = otherIsB ? scoutB : scoutA;
-    const otherQuarter = otherIsB ? currentQuarterB : currentQuarterA;
-    const otherName = otherIsB ? timeB : timeA;
-    const pointsTotal = otherScout.reduce((sum, item) => sum + (item[`pontos_quarto${otherQuarter}`] ?? 0), 0);
+    // Quarter ativo (do time atual) — usamos este número para checar ambos os times
+    const activeQuarter = timeAtual === timeA ? currentQuarterA : currentQuarterB;
 
-    // Não abrir modal no 4º quarto (não há avanço possível)
-    if (pointsTotal === 0 && otherQuarter !== 4) {
+    // Soma de pontos por time no quarter ativo
+    const pointsA = scoutA.reduce((sum, item) => sum + (item[`pontos_quarto${activeQuarter}`] ?? 0), 0);
+    const pointsB = scoutB.reduce((sum, item) => sum + (item[`pontos_quarto${activeQuarter}`] ?? 0), 0);
+
+    // Se qualquer um dos times não tiver pontos no quarter atual (e não for o 4º), pedir confirmação
+    if (activeQuarter !== 4 && (pointsA === 0 || pointsB === 0)) {
+      const teamsWithoutPoints = [];
+      if (pointsA === 0) teamsWithoutPoints.push(timeA);
+      if (pointsB === 0) teamsWithoutPoints.push(timeB);
+      const teamsText = teamsWithoutPoints.join(" e ");
+
       setConfirmData({
         title: "Confirmar encerramento de quarto",
-        message: `O time ${otherName} não tem pontos no ${otherQuarter}º quarto. Deseja realmente encerrar o quarto? Esta ação não pode ser desfeita.`,
+        message: `O(s) time(s) ${teamsText} não tem pontos no ${activeQuarter}º quarto. Deseja realmente encerrar o quarto? Esta ação não pode ser desfeita.`,
         onConfirm: () => {
           doAdvance();
           setConfirmOpen(false);
