@@ -6,7 +6,8 @@ import { PlacarPorQuartos } from "./PlacarPorQuartos";
 export const Placar = ({ time }) => {
   const { scoutA } = useContext(TimeA_Context);
   const { scoutB } = useContext(TimeB_Context);
-  const [showQuarters, setShowQuarters] = useState(false);
+  // Mostrar por quartos por padrão
+  const [showQuarters, setShowQuarters] = useState(true);
 
   const dados = time === "timeA" ? scoutA : scoutB;
   const dadosOrdenados = [...dados].sort((a, b) => Number(a.jogador) - Number(b.jogador));
@@ -32,7 +33,7 @@ export const Placar = ({ time }) => {
           const recent = item.lastUpdated && Date.now() - item.lastUpdated < 1200;
 
           return (
-            <tr key={item.jogador} className={`text-center table-row-hover ${recent ? 'flash-red' : ''}`} tabIndex={0}>
+            <tr key={`${item.jogador}-${item.lastUpdated ?? 0}`} className={`text-center table-row-hover ${recent ? 'flash-red' : ''}`} tabIndex={0}>
               <td className="border px-2 py-1">{item.jogador}</td>
               <td className="border px-2 py-1">{item.qtd_bola1}</td>
               <td className="border px-2 py-1">{item.qtd_bola2}</td>
@@ -53,27 +54,6 @@ export const Placar = ({ time }) => {
           <div role="tablist" aria-label="Tabelas de scout" className="flex bg-gray-100 rounded-md border">
             <button
               role="tab"
-              aria-selected={!showQuarters}
-              onClick={(e) => {
-                // ripple effect
-                const btn = e.currentTarget;
-                const rect = btn.getBoundingClientRect();
-                const span = document.createElement('span');
-                const size = Math.max(rect.width, rect.height);
-                span.style.width = span.style.height = size + 'px';
-                span.style.left = e.clientX - rect.left - size / 2 + 'px';
-                span.style.top = e.clientY - rect.top - size / 2 + 'px';
-                btn.appendChild(span);
-                setTimeout(() => span.remove(), 600);
-                setShowQuarters(false);
-              }}
-              className={`w-1/2 text-center text-sm md:text-base font-semibold py-2 transition-colors duration-150 focus:outline-none ripple ${!showQuarters ? 'text-white' : 'text-gray-700 hover:text-gray-900'}`}
-              style={{ background: !showQuarters ? '#1e40af' : 'transparent' }}
-            >
-              Scout por pontos
-            </button>
-            <button
-              role="tab"
               aria-selected={showQuarters}
               onClick={(e) => {
                 const btn = e.currentTarget;
@@ -91,6 +71,26 @@ export const Placar = ({ time }) => {
               style={{ background: showQuarters ? '#1e40af' : 'transparent' }}
             >
               Scout por quartos
+            </button>
+            <button
+              role="tab"
+              aria-selected={!showQuarters}
+              onClick={(e) => {
+                const btn = e.currentTarget;
+                const rect = btn.getBoundingClientRect();
+                const span = document.createElement('span');
+                const size = Math.max(rect.width, rect.height);
+                span.style.width = span.style.height = size + 'px';
+                span.style.left = e.clientX - rect.left - size / 2 + 'px';
+                span.style.top = e.clientY - rect.top - size / 2 + 'px';
+                btn.appendChild(span);
+                setTimeout(() => span.remove(), 600);
+                setShowQuarters(false);
+              }}
+              className={`w-1/2 text-center text-sm md:text-base font-semibold py-2 transition-colors duration-150 focus:outline-none ripple ${!showQuarters ? 'text-white' : 'text-gray-700 hover:text-gray-900'}`}
+              style={{ background: !showQuarters ? '#1e40af' : 'transparent' }}
+            >
+              Scout por pontos
             </button>
           </div>
 

@@ -30,7 +30,7 @@ export const PlacarPorQuartos = ({ time }) => {
           const tresTotais = item.qtd_bola3 || 0;
           const recent = item.lastUpdated && Date.now() - item.lastUpdated < 1200;
           return (
-            <tr key={item.jogador} className={`text-center table-row-hover ${recent ? 'flash-red' : ''}`} tabIndex={0}>
+            <tr key={`${item.jogador}-${item.lastUpdated ?? 0}`} className={`text-center table-row-hover ${recent ? 'flash-red' : ''}`} tabIndex={0}>
               <td className="border px-2 py-1">{item.jogador}</td>
               <td className="border px-2 py-1">{item.pontos_quarto1 ?? 0}</td>
               <td className="border px-2 py-1">{item.pontos_quarto2 ?? 0}</td>
